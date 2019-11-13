@@ -92,7 +92,7 @@ int Tick(int state) {
             break;
 
         case holdInc:
-            if (timeCntr == 2) { state = increment; }
+            if (timeCntr >= 2) { state = increment; }
             else if (A0 && !A1) { state = holdInc; }
             else if (A0 && A1) {state = reset; }
             else if (!A0 && !A1) {state = wait; }
@@ -130,9 +130,13 @@ int Tick(int state) {
             break;
 
         case holdInc:
-            ++timeCntr;
+			LCD_DisplayString(5, "hInc");
+			++timeCntr;
+            if (timeCntr > 2) {
+				timeCntr = 0;
+			}
             break;
-            
+			
         case holdDec:
 
             break;
